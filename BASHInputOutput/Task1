@@ -1,0 +1,13 @@
+#Перенаправьте ввод так чтобы выполнить команды хранящиеся в файле FileForTask1
+#если возникнут ошибки перенаправьте в файл errors
+#в конце очистите файл не удаляя его
+
+#!/bin/bash
+exec 0< FileForTask1
+exec 2> Errors
+while read line 
+do
+	$line>>answer.txt
+done
+
+cat /dev/null > FileForTask1

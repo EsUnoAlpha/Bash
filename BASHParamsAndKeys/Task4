@@ -1,0 +1,40 @@
+# напишите скрипт для регистрации если передан ключ -r запрашиваем логин и пароль. Заносим в файл и выводим "Вы успешно зарегестрировались"
+# если не передан ключ выводим надпись "А что вы тогда тут делаете?"
+
+
+
+#!/bin/bash
+db="db"
+count=0
+for param in "$@"
+do
+    if [[ $param == "-r" ]]
+    then
+        read -p "Введите логин: " login
+        read -p "Введите пароль " password
+        flag=""
+        while read check
+        do
+            if [[ $(($count % 2)) == 0 ]]
+            then
+                if [[ $login == $check ]]
+                then
+                    flag="F"
+                fi
+            fi
+            count=$(($count+1))
+        done < $db
+        if [[ $flag == "F" ]]
+        then
+            echo "Логин уже занят"
+            continue
+        fi
+        echo $login >> $db
+        echo $password >> $db
+        echo "Вы успешно зарегистрировались"
+        exit
+    else
+        echo "А что ты тут забыл???"
+        exit
+    fi
+done

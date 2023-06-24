@@ -1,0 +1,12 @@
+# Напишите скрипт который перенаправляет вывод данных из всех файлов этой директории в файл done
+# в конце в консоль выводится надпись о завершении работы
+
+
+#!/bin/bash
+exec 3> done.txt
+for file in "/home/esunobeta/Документы/BASHInputOutput/*"
+do
+	cat $file >&3
+done
+
+echo "Ready"

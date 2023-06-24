@@ -1,0 +1,13 @@
+#выведите отдельные слова из файла filefortask2.txt в столбик
+
+
+#!/bin/bash
+
+
+file="Filefortask2.txt"
+IFS=$';' #Переменная-сепаратор
+
+for var in $(cat $file)
+do
+	echo " $var"
+done

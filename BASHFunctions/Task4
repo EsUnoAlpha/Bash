@@ -1,0 +1,34 @@
+# задача со *, 1 сдавшему это задание засчитываю домашку по функциям без защиты
+#Представьте, что сумма за пользование услугами такси складывается из
+#базового тарифа в размере $4,00 плюс $0,25 за каждые 140 м поездки.
+#Напишите функцию, принимающую в качестве единственного параметра
+#расстояние поездки в километрах и возвращающую итоговую сумму оплаты такси.
+# Решите задание рекурсивной функцией
+
+
+#!/bin/bash
+function faketaxi {
+    price=$2
+    distance=$1
+    if [[ $distance -ne 0 ]]
+    then
+        if [[ $distance -ge 140 ]]
+        then
+            price=$(echo "scale=2; 0.25 + $price" | bc)
+            distance=$(($distance-140))
+            taxi $distance $price
+        fi
+        if [[ $distance -lt 140 ]]
+        then
+            price=$(echo "scale=2; 0.25 + $price" | bc)
+            echo $(echo "scale=2; $price" | bc)
+            exit
+        fi
+    fi
+}
+
+read -p "Введите растояние в киломметрах: " way
+meters=$(echo "scale=2; $way * 1000" | bc)
+price=4
+result=$( faketaxi $meters $price)
+echo "Ваша стоимость поездки: $result"
